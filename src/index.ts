@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import { mainRouter } from "./main.router";
+import { mainErrorHandler } from "./middlewares/main-error-handler";
 
 const compression = require("compression");
 const app = express();
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/', mainRouter); //serve API Routes
-
+app.use(mainErrorHandler);
 app.listen(port, () => {
     console.log(`server started on http://127.0.0.1:${port}`);
 });
